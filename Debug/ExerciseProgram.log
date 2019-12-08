@@ -1,0 +1,4 @@
+﻿  ExerciseProgram.cpp
+C:\Users\Resizt\Documents\Git\Projects\C++\ExerciseProgram\ExerciseProgram.cpp(17,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Resizt\Documents\Git\Projects\C++\ExerciseProgram\ExerciseProgram.cpp(19,22): warning C4309: '=': truncation of constant value
+  ExerciseProgram.vcxproj -> C:\Users\Resizt\Documents\Git\Projects\C++\ExerciseProgram\Debug\ExerciseProgram.exe
