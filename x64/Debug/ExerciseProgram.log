@@ -1,3 +1,2 @@
 ﻿  ExerciseProgram.cpp
-C:\Users\badbo\source\repos\ExerciseProgram\ExerciseProgram.cpp(38,8): warning C4101: 'bmi2': unreferenced local variable
-  ExerciseProgram.vcxproj -> C:\Users\badbo\source\repos\ExerciseProgram\x64\Debug\ExerciseProgram.exe
+  ExerciseProgram.vcxproj -> C:\Users\Resizt\Documents\Git\Projects\C++\ExerciseProgram\x64\Debug\ExerciseProgram.exe
