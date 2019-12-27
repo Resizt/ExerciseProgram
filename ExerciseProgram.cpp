@@ -39,7 +39,6 @@ int main(){
 				break;
 		}
 	}
-	cin >> choice;
 }
 
 
@@ -69,15 +68,23 @@ void newMember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4
 	nINPUTS[x][4] = bmi;
 
 	printUser(uINPUTS, tINPUTS, nINPUTS, x);
+	x++;
 }
 
 void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) {
 	string newUser;
-	ofstream newFile;
+	ofstream newFile, database;
+
 	newUser = uINPUTS[x][1];
 	newUser = newUser + ".txt";
+
+	database.open("Membership.txt");
 	newFile.open(newUser);
 
+
+	for (int i = 1; i <= x; i++) {
+		database << uINPUTS[i][1] << endl;
+	}
 	newFile << uINPUTS[x][1] << endl;
 	newFile << tINPUTS[x][1] << endl;
 	newFile << nINPUTS[x][1] << endl;
@@ -100,6 +107,15 @@ void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4
 	cout << "------------------------------------------" << endl;
 }
 
+void loadup (string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) { // Rename function to New User 
+	string dbList;
+	ifstream database;
+	database.open("Membership.txt");
+	for (int mebNum = 1; mebNum <= 10; mebNum++) {
+		database >> uINPUTS[x][1];
+		x++;
+	}
+}
 void menu() {
 	cout << "Exercise program" << endl;
 	cout << "-------------------------------------------" << endl;
