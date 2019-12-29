@@ -1,14 +1,17 @@
 #include <iostream>
-#include <sstream>
+#include <string>
+#include <iomanip>
 #include <fstream>
-#include <stdlib.h>
+#include <stdio.h> 
+#include <io.h>
 
 using namespace std;
 
-void newMember	(string[10][1], string[10][5], float[10][4], int);
-void newSave	(string[10][1], string[10][5], float[10][4], int);
-void printUser	(string[10][1], string[10][5], float[10][4], int);
-void loadup		(string[10][1], string[10][5], float[10][4], int);
+void newMember	(string[10][1], string[10][5], float[10][4], int&);
+void newSave	(string[10][1], string[10][5], float[10][4], int&);
+//void printUser(string[10][1], string[10][5], float[10][4], int&);
+void loadup		(string[10][1], string[10][5], float[10][4], int&);
+void selectmember(string[10][1], string[10][5], float[10][4], int&);
 
 void menu();
 
@@ -17,20 +20,21 @@ int main(){
 			tINPUTS[10][5];
 
 	float	nINPUTS[10][4];
-	int		x = 1, 
-			choice = 0;
+	int		memberCount = 1;
+	int		choice = 0;
 
-	loadup(uINPUTS, tINPUTS, nINPUTS, x);
+	loadup(uINPUTS, tINPUTS, nINPUTS, memberCount);
 
 	while (choice != 3){
 		menu();
 		cin >> choice;
 		switch (choice){
 			case 1:
-				newMember(uINPUTS, tINPUTS, nINPUTS, x);
-				newSave(uINPUTS, tINPUTS, nINPUTS, x);
+				newMember(uINPUTS, tINPUTS, nINPUTS, memberCount);
+				newSave(uINPUTS, tINPUTS, nINPUTS, memberCount);
 				break;
 			case 2:
+				selectmember(uINPUTS, tINPUTS, nINPUTS, memberCount);
 			//	loadup();
 			//	calorielimit(input, x)
 				break;
@@ -42,80 +46,98 @@ int main(){
 }
 
 
-void newMember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) { // Rename function to New User 
+void newMember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) { // Rename function to New User 
 	float bmi;
 	string newUser;
 	ofstream newFile;
 
 	cout << "Enter your name please" << endl;
 	cin.ignore();
-	getline(cin, uINPUTS[x][1]);
+	getline(cin, uINPUTS[memberCount][1]);
 
 
 	cout << "Choose your Sex" << endl;
-	getline(cin, tINPUTS[x][1]);
+	getline(cin, tINPUTS[memberCount][1]);
 
 	cout << "Enter your Height in inches (So 5'5 would be 66)" << endl;
-	cin >> nINPUTS[x][1];
+	cin >> nINPUTS[memberCount][1];
 
 	cout << "Enter your Age" << endl;
-	cin >> nINPUTS[x][2];
+	cin >> nINPUTS[memberCount][2];
 
 	cout << "Enter your Weight (Just the numbers in lbs)" << endl;
-	cin >> nINPUTS[x][3];
+	cin >> nINPUTS[memberCount][3];
 
-	bmi = (703 * (nINPUTS[x][3] / (nINPUTS[x][1] * nINPUTS[x][1])));
-	nINPUTS[x][4] = bmi;
+	bmi = (703 * (nINPUTS[memberCount][3] / (nINPUTS[memberCount][1] * nINPUTS[memberCount][1])));
+	nINPUTS[memberCount][4] = bmi;
 
-	printUser(uINPUTS, tINPUTS, nINPUTS, x);
-	x++;
+	//printUser(uINPUTS, tINPUTS, nINPUTS, memberCount);
 }
 
-void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) {
+void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
 	string newUser;
 	ofstream newFile, database;
 
-	newUser = uINPUTS[x][1];
+	newUser = uINPUTS[memberCount][1];
 	newUser = newUser + ".txt";
 
 	database.open("Membership.txt");
 	newFile.open(newUser);
 
 
-	for (int i = 1; i <= x; i++) {
+	for (int i = 0; i <= memberCount; i++) {
 		database << uINPUTS[i][1] << endl;
 	}
-	newFile << uINPUTS[x][1] << endl;
-	newFile << tINPUTS[x][1] << endl;
-	newFile << nINPUTS[x][1] << endl;
-	newFile << nINPUTS[x][2] << endl;
-	newFile << nINPUTS[x][3] << endl;
-	newFile << nINPUTS[x][4] << endl;
+
+	cout << "New file being created" << endl;
+	newFile << uINPUTS[memberCount][1] << endl;
+	newFile << tINPUTS[memberCount][1] << endl;
+	newFile << nINPUTS[memberCount][1] << endl;
+	newFile << nINPUTS[memberCount][2] << endl;
+	newFile << nINPUTS[memberCount][3] << endl;
+	newFile << nINPUTS[memberCount][4] << endl;
 
 
 	newFile.close();
+	memberCount++;
 }
 
-void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) {
+void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int memberCount) {
 	system("CLS");
 	cout << "Welcome to the program, here's your record so far" << endl;
-	cout << "Name; "	<< uINPUTS[x][1] << endl;
-	cout << "Height; "	<< nINPUTS[x][1] << endl;
-	cout << "Weight; "	<< nINPUTS[x][3] << endl;
-	cout << "Age; "		<< nINPUTS[x][2] << endl;
-	cout << "BMI; "		<< nINPUTS[x][4] << endl;
+	cout << "Name; "	<< uINPUTS[memberCount][1] << endl;
+	cout << "Height; "	<< nINPUTS[memberCount][1] << endl;
+	cout << "Weight; "	<< nINPUTS[memberCount][3] << endl;
+	cout << "Age; "		<< nINPUTS[memberCount][2] << endl;
+	cout << "BMI; "		<< nINPUTS[memberCount][4] << endl;
 	cout << "------------------------------------------" << endl;
 }
 
-void loadup (string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int x) { // Rename function to New User 
+void loadup (string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) { 
 	string dbList;
 	ifstream database;
 	database.open("Membership.txt");
-	for (int mebNum = 1; mebNum <= 10; mebNum++) {
-		database >> uINPUTS[x][1];
-		x++;
+	if (!database) {
+		cout << "First time boot" << endl;
+	}
+	else {
+		for (int mebNum = 1; mebNum <= 10; mebNum++) {
+			getline(database, uINPUTS[mebNum][1]);
+			memberCount++;
+			if (uINPUTS[mebNum][1] == "")
+				memberCount--;
+			cout << "There are " << memberCount << " members in the database" << endl;
+
+			/*
+			if (uINPUTS[mebNum][1] == "") {
+				memberCount--;
+				cout << "There are " << memberCount << " members in the database" << endl;
+			}
+			*/
+		}
 	}
 }
+
 void menu() {
 	cout << "Exercise program" << endl;
 	cout << "-------------------------------------------" << endl;
@@ -125,6 +147,13 @@ void menu() {
 	cout << "X. Exit Program" << endl;
 }
 
+void selectmember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
+	for (int i = 1; i <= memberCount; i++) {
+		cout << i << ". " << uINPUTS[i][1] << endl;
+	}
+
+	cout << "There are " << memberCount << " members in the database" << endl;
+}
 /*
 void calorielimit(string tINPUTS[10][6], int nINPUTS[10][5], int x) {
 	//if(input[10][6] < 80)
