@@ -9,7 +9,7 @@ using namespace std;
 
 void newMember	(string[10][1], string[10][5], float[10][4], int&);
 void newSave	(string[10][1], string[10][5], float[10][4], int&);
-//void printUser(string[10][1], string[10][5], float[10][4], int&);
+void printUser	(string[10][1], string[10][5], float[10][4], int&);
 void loadup		(string[10][1], string[10][5], float[10][4], int&);
 void selectmember(string[10][1], string[10][5], float[10][4], int&);
 
@@ -20,7 +20,7 @@ int main(){
 			tINPUTS[10][5];
 
 	float	nINPUTS[10][4];
-	int		memberCount = 1;
+	int		memberCount = 0;
 	int		choice = 0;
 
 	loadup(uINPUTS, tINPUTS, nINPUTS, memberCount);
@@ -71,11 +71,11 @@ void newMember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4
 	bmi = (703 * (nINPUTS[memberCount][3] / (nINPUTS[memberCount][1] * nINPUTS[memberCount][1])));
 	nINPUTS[memberCount][4] = bmi;
 
-	//printUser(uINPUTS, tINPUTS, nINPUTS, memberCount);
+	printUser(uINPUTS, tINPUTS, nINPUTS, memberCount);
 }
 
 void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
-	string newUser;
+	string newUser, nameHolder;
 	ofstream newFile, database;
 
 	newUser = uINPUTS[memberCount][1];
@@ -85,8 +85,12 @@ void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4],
 	newFile.open(newUser);
 
 
-	for (int i = 0; i <= memberCount; i++) {
+	for (int i = 1; i <= memberCount; i++){
 		database << uINPUTS[i][1] << endl;
+		nameHolder = uINPUTS[i + 1][1];
+		if (nameHolder != "" || i = 2) {
+			database << uINPUTS[i + 1][1] << endl;
+		}
 	}
 
 	cout << "New file being created" << endl;
@@ -102,7 +106,7 @@ void newSave(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4],
 	memberCount++;
 }
 
-void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int memberCount) {
+void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
 	system("CLS");
 	cout << "Welcome to the program, here's your record so far" << endl;
 	cout << "Name; "	<< uINPUTS[memberCount][1] << endl;
@@ -113,27 +117,22 @@ void printUser(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4
 	cout << "------------------------------------------" << endl;
 }
 
-void loadup (string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) { 
-	string dbList;
+void loadup (string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
+	string dbList, nameHolder;
 	ifstream database;
 	database.open("Membership.txt");
 	if (!database) {
 		cout << "First time boot" << endl;
 	}
 	else {
-		for (int mebNum = 1; mebNum <= 10; mebNum++) {
-			getline(database, uINPUTS[mebNum][1]);
-			memberCount++;
-			if (uINPUTS[mebNum][1] == "")
-				memberCount--;
-			cout << "There are " << memberCount << " members in the database" << endl;
-
-			/*
-			if (uINPUTS[mebNum][1] == "") {
-				memberCount--;
-				cout << "There are " << memberCount << " members in the database" << endl;
+		for (int mebNum = 0; mebNum < 10; mebNum++) {
+			getline(database, nameHolder);
+			if (nameHolder != "") {
+				memberCount++;
+			//	cout << nameHolder << " is the " << mebNum << " in the program" << endl;
+				uINPUTS[memberCount][1] = nameHolder;
+				cout << "New member added, this is the " << memberCount << " memeber added" << endl;
 			}
-			*/
 		}
 	}
 }
@@ -148,12 +147,14 @@ void menu() {
 }
 
 void selectmember(string uINPUTS[10][1], string tINPUTS[10][5], float nINPUTS[10][4], int& memberCount) {
+	system("CLS");
 	for (int i = 1; i <= memberCount; i++) {
 		cout << i << ". " << uINPUTS[i][1] << endl;
 	}
 
 	cout << "There are " << memberCount << " members in the database" << endl;
 }
+
 /*
 void calorielimit(string tINPUTS[10][6], int nINPUTS[10][5], int x) {
 	//if(input[10][6] < 80)

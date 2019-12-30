@@ -1,2 +1,3 @@
 ﻿  ExerciseProgram.cpp
-  ExerciseProgram.vcxproj -> C:\Users\badbo\source\repos\ExerciseProgram\x64\Debug\ExerciseProgram.exe
+C:\Users\badbo\source\repos\ExerciseProgram\ExerciseProgram.cpp(91,32): warning C4305: '=': truncation from 'int' to 'bool'
+C:\Users\badbo\source\repos\ExerciseProgram\ExerciseProgram.cpp(91,32): error C2106: '=': left operand must be l-value
