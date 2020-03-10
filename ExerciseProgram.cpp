@@ -13,9 +13,12 @@ void newSave		(string[11][1], string[11][5], float[11][4], int&);
 void printUser		(string[11][1], string[11][5], float[11][4], int&);
 void loadup			(string[11][1], string[11][5], float[11][4], int&);
 void databaseUpdate	(string[11][1], string[11][5], float[11][4], int&);
-void selectmember	(string[11][1], string[11][5], float[11][4], int&, int);
+void memberPrint	(string[11][1], string[11][5], float[11][4], int&);
+void memberSelect	(string[11][1], string[11][5], float[11][4], int&, int);
+void deleteMember	(string[11][1], string[11][5], float[11][4], int&, int);
 
 /* User Selection */
+
 //void diet			(string[11][1], string[11][5], float[11][4], int&);
 //void exerciseRec	(string[11][1], string[11][5], float[11][4], int&);
 
@@ -24,7 +27,9 @@ void namecheck(string[11][1], int&);
 
 /* Other Functions */ 
 void cleanup();
-void menu();
+void empty	(); // Soon to be added
+void menu	();
+void menu2	(string[11][1], string[11][5], float[11][4], int&, int);
 
 int main(){
 	string	uINPUTS[11][1], 
@@ -33,33 +38,37 @@ int main(){
 	float	nINPUTS[11][4];
 	int		memberCount = 0;
 	int		choice = 0;
-	int		member;
+	int		select = 0;
 
 	loadup(uINPUTS, tINPUTS, nINPUTS, memberCount);
 
-	while (choice != 3){
+	while (choice != 4){
 
 		menu();
 		cin >> choice;
+		while (choice < 0 || choice > 4) {
+			cout << "Your input is invalid, please try again" << endl;
+			cin >> choice;
+		}
+
 		switch (choice){
 			case 1:
 			if (memberCount < 10) {
 					newMember		(uINPUTS, tINPUTS, nINPUTS, memberCount);
 					newSave			(uINPUTS, tINPUTS, nINPUTS, memberCount);
-					databaseUpdate	(uINPUTS, tINPUTS, nINPUTS, memberCount);
 					memberCount++;
+					databaseUpdate	(uINPUTS, tINPUTS, nINPUTS, memberCount);
 					break;
 				}
 				else {
-					break;
 					cleanup();
 					cout << "The Storage is full, please remove someone if you want to add a new member" << endl;
 				}
+			break;
 			case 2:
+				cout << "This is membercount: " << memberCount << endl;
 				if (memberCount != 0) {
-					selectmember(uINPUTS, tINPUTS, nINPUTS, memberCount, member);
-					databaseUpdate(uINPUTS, tINPUTS, nINPUTS, memberCount);
-					//	loadup();
+					// memberSelect	(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
 					//	calorielimit(input, x);
 					break;
 				}
@@ -67,16 +76,84 @@ int main(){
 					cleanup();
 					cout << "The database is empty" << endl;
 				}
-			case 3:
-				deletemember(uINPUTS, tINPUTS, nINPUTS, memberCount);
 				break;
-
+			case 3:
+				if (memberCount != 0) {
+					deleteMember	(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+					databaseUpdate	(uINPUTS, tINPUTS, nINPUTS, memberCount);
+					break;
+				}
+				else if (memberCount == 0) {
+					cleanup();
+					cout << "The database is empty" << endl;
+				}
+				break;
 			case 4:
 				exit(0);
 				break;
 		}
 	}
 }
+
+void menu2(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount, int select) {
+
+	cout << "User: " << uINPUTS[select][1] << " Weight: " << nINPUTS[select][3] << " Current BMI: " << nINPUTS[select][4] << endl;
+	/*
+	while (choice != 4) {
+
+		menu();
+		cin >> choice;
+		while (choice < 0 || choice > 4) {
+			cout << "Your input is invalid, please try again" << endl;
+			cin >> choice;
+		}
+
+		switch (choice) {
+		case 1:
+			if (memberCount < 10) {
+				newMember(uINPUTS, tINPUTS, nINPUTS, memberCount);
+				newSave(uINPUTS, tINPUTS, nINPUTS, memberCount);
+				memberCount++;
+				databaseUpdate(uINPUTS, tINPUTS, nINPUTS, memberCount);
+				break;
+			}
+			else {
+				cleanup();
+				cout << "The Storage is full, please remove someone if you want to add a new member" << endl;
+			}
+			break;
+		case 2:
+			cout << "This is membercount: " << memberCount << endl;
+			if (memberCount != 0) {
+				memberSelect(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+				//	calorielimit(input, x);
+				break;
+			}
+			else if (memberCount == 0) {
+				cleanup();
+				cout << "The database is empty" << endl;
+			}
+			break;
+		case 3:
+			if (memberCount != 0) {
+				deleteMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+				databaseUpdate(uINPUTS, tINPUTS, nINPUTS, memberCount);
+				break;
+			}
+			else if (memberCount == 0) {
+				cleanup();
+				cout << "The database is empty" << endl;
+			}
+			break;
+		case 4:
+			exit(0);
+			break;
+		}
+	}
+	*/
+}
+
+
 
 void newMember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount) { // Rename function to New User 
 	float bmi;
@@ -88,7 +165,7 @@ void newMember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4
 
 	namecheck(uINPUTS, memberCount);
 
-	/*
+	
 	cout << "Choose your Sex" << endl;
 	getline(cin, tINPUTS[memberCount][1]);
 
@@ -103,8 +180,8 @@ void newMember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4
 
 	bmi = (703 * (nINPUTS[memberCount][3] / (nINPUTS[memberCount][1] * nINPUTS[memberCount][1])));
 
-	// nINPUTS[memberCount][4] = bmi;
-	*/
+	nINPUTS[memberCount][4] = bmi;
+
 
 	// printUser(uINPUTS, tINPUTS, nINPUTS, memberCount);
 }
@@ -119,9 +196,6 @@ void newSave(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4],
 	newFile.open(newUser);
 
 	newFile << uINPUTS[memberCount][1] << endl;
-	/* // DEBUG 
-	cout << "USER: " << uINPUTS[memberCount][1] << " IS BEING SAVED" << endl;
-	*/
 	newFile << tINPUTS[memberCount][1] << endl;
 	newFile << nINPUTS[memberCount][1] << endl;
 	newFile << nINPUTS[memberCount][2] << endl;
@@ -136,16 +210,17 @@ void databaseUpdate(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[
 	string name;
 
 	database.open("Membership.txt");
-
 	for (int i = 0; i <= memberCount; i++) {
 		database << uINPUTS[i][1] << endl;
 	}
 
 	for (int i = 0; i <= memberCount; i++) {
-		if (uINPUTS[i][1] == "") {
+		if (uINPUTS[i][1] == "" && i != memberCount && i + 1 < memberCount) {
 			name = uINPUTS[i][1];
-			uINPUTS[i][1] = uINPUTS[i + 1][1];
-			uINPUTS[i+1][1] = name;
+			if (i + 1 < memberCount) {
+				uINPUTS[i][1] = uINPUTS[i + 1][1];
+				uINPUTS[i + 1][1] = name;
+			}
 		}
 	}
 }
@@ -180,36 +255,52 @@ void loadup(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], 
 	}
 }
 
-void selectmember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount, int member) {
+void memberPrint(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount) {
 	system("CLS");
-	int member;
 	for (int i = 0; i < memberCount; i++) {
 		cout << i+1 << ". " << uINPUTS[i][1] << endl;
 	}
-
-	//cout << "There are " << memberCount << " members in the database" << endl;
-
-	cout << "-------------------------------------------" << endl;
-
-	// Remove this when the other functions are added
-	//cout << "Select a member" << endl;
-	cin >> member;
+	cout << "---------------------" << endl;
 }
 
-void deletemember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount) {
-	int member;
+void memberSelect(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount, int select){
+	
+	memberPrint(uINPUTS, tINPUTS, nINPUTS, memberCount);
+	cout << "Please select a member" << endl;
+	cout << "---------------------" << endl;
+	cin >> select;
 
-	selectmember(uINPUTS, tINPUTS, nINPUTS, memberCount, member);
+	cleanup();
+	menu2(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+
+}
+
+void deleteMember(string uINPUTS[11][1], string tINPUTS[11][5], float nINPUTS[11][4], int& memberCount, int select) {
+	string file, name;
+
+	system("CLS");
+	memberPrint(uINPUTS, tINPUTS, nINPUTS, memberCount);
 
 	cout << "Select a member to remove" << endl;
-	cin >> member;
+	cin >> select;
+
+	cout << "User: " << uINPUTS[select-1][1] << " has been deleted" << endl;
+
+	file = uINPUTS[select - 1][1] + ".txt";
+	remove(file.c_str());
+
+	uINPUTS[select-1][1] = "";
+
 	for (int i = 0; i <= memberCount; i++) {
-		if (uINPUTS[i][1] == "") {
+		if (uINPUTS[i][1] == "" && i != memberCount && i + 1 < memberCount) {
 			name = uINPUTS[i][1];
-			uINPUTS[i][1] = uINPUTS[i + 1][1];
-			uINPUTS[i + 1][1] = name;
+			if (i + 1 < memberCount) {
+				uINPUTS[i][1] = uINPUTS[i + 1][1];
+				uINPUTS[i + 1][1] = name;
+			}
 		}
 	}
+	memberCount--;
 }
 
 /* Functions */
@@ -235,16 +326,17 @@ void namecheck(string uINPUTS[11][1], int& memberCount) {
 
 void menu() {
 	cout << "Exercise program" << endl;
-	cout << "-------------------------------------------" << endl;
+	cout << "---------------------" << endl;
 
-	cout << "1. New User" << endl;
-	cout << "2. Existing User" << endl;
-	cout << "X. Exit Program" << endl;
+	cout << "1. New User"		<< endl;
+	cout << "2. Select User"	<< endl;
+	cout << "3. Delete User"	<< endl;
+	cout << "4. Exit Program"	<< endl;
 }
 
 void cleanup() {
 	system("CLS");
-	cout << "-------------------------------------------" << endl;
+	cout << "---------------------" << endl;
 }
 
 /*
