@@ -757,7 +757,49 @@ void lFat(string uINPUTS[11][1], string tINPUTS[11][5],
     }
 }
 
+void lSalt(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Cereal w/low sodium\n2. Oatmeal with honey\nLunch\n1. Soup w/low sodium \nDinner\n1. Spaghetti with Tomato Sauce\n2. Vegetables\n3. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
 
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void cProtein(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Whole Eggs \n2. Oatmeal \n3. A Glass of Milk \nLunch\n1. Soup w/low sodium \nDinner\n1. Spaghetti with Tomato Sauce\n2. Vegetables\n3. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
 
 /* Menus */
 
