@@ -713,6 +713,28 @@ void fruitnveg(string uINPUTS[11][1], string tINPUTS[11][5],
     }
 }
 
+void iFasting(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\nYou're fasting all of the morning \n---------------------\n \nLunch (12 PM)\n1. Full meal fruit enrichen\n2. Two glasses of water\nDinner (8PM)\n1. Watermelon\n2. Berries\n3. One glass of water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
 /* Menus */
 
 void menu() {
