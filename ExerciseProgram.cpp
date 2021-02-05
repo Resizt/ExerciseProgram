@@ -735,6 +735,30 @@ void iFasting(string uINPUTS[11][1], string tINPUTS[11][5],
     }
 }
 
+void lFat(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Apples\n2. Oatmeal with honey\n3. Frozen Berries \n4. 1 Cup of Orange Juice \nLunch\n1. Tuna\n2. Boiled Eggs\n3. 1 cup of Yogurt \nDinner\n1. Spaghetti with Tomato Sauce\n2. Vegetables\n3. Lean Meatballs\n4. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+
+
 /* Menus */
 
 void menu() {
