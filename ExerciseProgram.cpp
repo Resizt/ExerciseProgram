@@ -562,26 +562,26 @@ void diet(string uINPUTS[11][1], string tINPUTS[11][5],
     if (nINPUTS[select][4] <= 18.5) {
         switch (diet) {
         case 1:
-         //   rNutrition(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            rNutrition(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-          //  tCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            tCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-         //   lCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            lCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
     else if (nINPUTS[select][4] >= 18.5 && nINPUTS[select][4] < 25) {
         switch (diet) {
         case 1:
-          //  lCarb(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            lCarb(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-          //  Vegan(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            Vegan(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-           // glutenFree(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            glutenFree(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
@@ -591,10 +591,10 @@ void diet(string uINPUTS[11][1], string tINPUTS[11][5],
             fruitnveg(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-        //    lFat(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            lFat(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-         //   lSalt(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+           lSalt(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
@@ -602,18 +602,18 @@ void diet(string uINPUTS[11][1], string tINPUTS[11][5],
     else if (nINPUTS[select][4] >= 30) {
         switch (diet) {
         case 1:
-         //   cProtein(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            cProtein(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
             fruitnveg(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-         //   iFasting(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            iFasting(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
     }
-
+/*
 void exercise(string uINPUTS[11][1], string tINPUTS[11][5],
     float nINPUTS[11][4], int& memberCount, int& select) {
     int exercise;
@@ -637,26 +637,26 @@ void exercise(string uINPUTS[11][1], string tINPUTS[11][5],
     if (nINPUTS[select][4] <= 18.5) {
         switch (exercise) {
         case 1:
-            //   rNutrition(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            rNutrition(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            //  tCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            tCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-            //   lCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            lCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
     else if (nINPUTS[select][4] >= 18.5 && nINPUTS[select][4] < 25) {
         switch (exercise) {
         case 1:
-            //  lCarb(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            lCarb(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            //  Vegan(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            Vegan(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-            // glutenFree(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            glutenFree(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
@@ -688,6 +688,7 @@ void exercise(string uINPUTS[11][1], string tINPUTS[11][5],
         }
     }
 }
+*/
 
 /* Diet options */
 
@@ -786,7 +787,139 @@ void cProtein(string uINPUTS[11][1], string tINPUTS[11][5],
     UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
     cout << "Here is your selected diet" << endl;
     cout << "---------------------" << endl;
-    cout << "Morning\n1. Whole Eggs \n2. Oatmeal \n3. A Glass of Milk \nLunch\n1. Soup w/low sodium \nDinner\n1. Spaghetti with Tomato Sauce\n2. Vegetables\n3. 2 glass of Water" << endl;
+    cout << "Morning\n1. Whole Eggs \n2. Oatmeal-Almond Protein Pancakes \n3. A Glass of Milk \nLunch\n1. Nut & Berry Parfait \nDinner\n1. Spicy Shrimp Spinach Caesar Salad \n2. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void glutenFree(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Spinach and Oven-Roasted Tomato \n2. A Glass of Water\nLunch\n1. Turkey Chili \nDinner\n1. Steak with Yams and Zucchini \n2. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void Vegan(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Vegan Pancakes \n2. A cup of Blackberries\n3. A cup of Water\nLunch\n1. White Bean & Avocado Toast \n2. One Cucumber\nDinner\n1. Falafel Salad with Lemon-Tahini Dressing \n2. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void lCarb(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Eggs and leafy green vegetables \n2. A Glass of Water\nLunch\n1. Chicken Breast & Broccoli \nDinner\n1. Pork Loin with Garlic and Rosemary \n2. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void lCalories(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Berry English Muffin \n2. A Glass of Water\nLunch\n1. Winter Grains \nDinner\n1. Light 'N Lean Italian Vegetable Pizza \n2. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void tCalories(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 2 slices of toast\n2. 2 scrambled eggs\n3. A Glass of Orange Juice\nLunch\n1. Grilled cheese sandwich \n2. Tomato soup\nDinner\n1. 2 pieces garlic toast \n2. Cooked broccoli \n3. 3 Oz Ground Beef\n4. 2 glass of Water" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void rNutrition(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here is your selected diet" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. Seaweed and Leafy Greens\n2. Egg Yolks \n3. A Glass of Orange Juice\nLunch\n1. Bone Broth \nDinner\n1. Wild Rice \n2. Wild salmon and sardines \n3. Tomatoes\n4. 2 glass of Water" << endl;
     cout << "---------------------" << endl;
     cout << "Please press 1 to continue..." << endl;
 
