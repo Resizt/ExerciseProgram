@@ -12,7 +12,6 @@ using namespace std;
 /* Menu */
 void menu();
 void memberMenu(string[11][1], string[11][5], float[11][4], int&, int&);
-
 void newMember(string[11][1], string[11][5], float[11][4], int&);
 void newSave(string[11][1], string[11][5], float[11][4], int&);
 void printUser(string[11][1], string[11][5], float[11][4], int&);
@@ -29,27 +28,24 @@ void fileupdate(string[11][1], string[11][5], float[11][4], int&, int&);
 void bmicalculate(string[11][1], string[11][5], float[11][4], int&, int&);
 void memberSex(string[11][1], string[11][5], float[11][4], int&, int&);
 
-/*Diet Section*/
+/*Member Section*/
 void memberEdit(string[11][1], string[11][5], float[11][4], int&, int&);
 void diet	    (string[11][1], string[11][5], float[11][4], int&, int&);
-
-// void exerciseRec	(string[11][1], string[11][5], float[11][4], int&);
+void exercise    (string[11][1], string[11][5], float[11][4], int&, int&);
 
 /* Validation Fucntions */
 void namecheck(string[11][1], int&);
 
 /* Other Functions */
 void cleanup();
-void empty(); // Soon to be added
-
 void bmi(float);
 void usermenu();
 void editmenu();
 
 /* Diet */
-void rNutrition(string[11][1], string[11][5], float[11][4], int&, int&);   // Rich Nutrion
-void tCalories(string[11][1], string[11][5], float[11][4], int&, int&);    // T
-void lCalories(string[11][1], string[11][5], float[11][4], int&, int&);    // Low Calories
+void rNutrition(string[11][1], string[11][5], float[11][4], int&, int&);  
+void tCalories(string[11][1], string[11][5], float[11][4], int&, int&);    
+void lCalories(string[11][1], string[11][5], float[11][4], int&, int&);   
 void lCarb(string[11][1], string[11][5], float[11][4], int&, int&);
 void Vegan(string[11][1], string[11][5], float[11][4], int&, int&);
 void fruitnveg(string[11][1], string[11][5], float[11][4], int&, int&);
@@ -59,6 +55,15 @@ void iFasting(string[11][1], string[11][5], float[11][4], int&, int&);
 void fruitnveg(string[11][1], string[11][5], float[11][4], int&, int&);
 void cProtein(string[11][1], string[11][5], float[11][4], int&, int&);
 void glutenFree (string[11][1], string[11][5], float[11][4], int&, int&);
+
+/* Exercise */
+void bMass(string[11][1], string[11][5], float[11][4], int&, int&);
+void sTraining(string[11][1], string[11][5], float[11][4], int&, int&);
+void fBurn(string[11][1], string[11][5], float[11][4], int&, int&);
+void cCardio(string[11][1], string[11][5], float[11][4], int&, int&);
+void cEndur(string[11][1], string[11][5], float[11][4], int&, int&);
+void wTraining(string[11][1], string[11][5], float[11][4], int&, int&);
+
 
 int main() {
     string uINPUTS[11][1], tINPUTS[11][5];
@@ -125,9 +130,9 @@ void memberMenu(string uINPUTS[11][1], string tINPUTS[11][5],
     int choice = 0;
 
     memberLoadup(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
-    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
 
     while (choice != 4) {
+        UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
         usermenu();
         cin >> choice;
         while (choice < 0 || choice > 4) {
@@ -140,7 +145,7 @@ void memberMenu(string uINPUTS[11][1], string tINPUTS[11][5],
             diet(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            cout << "This is a test for the exercise plan" << endl;
+            exercise(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
             memberEdit(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
@@ -455,7 +460,6 @@ void deleteMember(string uINPUTS[11][1], string tINPUTS[11][5],
 void memberEdit(string uINPUTS[11][1], string tINPUTS[11][5],
     float nINPUTS[11][4], int& memberCount, int& select) {
     string name, sex, first, last;
-    cleanup();
     UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
     editmenu();
     int choice = 0;
@@ -498,6 +502,7 @@ void memberEdit(string uINPUTS[11][1], string tINPUTS[11][5],
     memberMenu(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
 }
 
+
 void memberSex(string uINPUTS[11][1], string tINPUTS[11][5],
     float nINPUTS[11][4], int& memberCount, int& select) {
     int sex;
@@ -529,6 +534,7 @@ void printUser(string uINPUTS[11][1], string tINPUTS[11][5],
 
 void UIMember(string uINPUTS[11][1], string tINPUTS[11][5],
     float nINPUTS[11][4], int& memberCount, int& select) {
+    cleanup();
     bmicalculate(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
     cout << "User: " << uINPUTS[select][1] << endl;
     cout << "---------------------" << endl;
@@ -556,7 +562,7 @@ void diet(string uINPUTS[11][1], string tINPUTS[11][5],
             cout << "1. Concentrated Protein \n2. Fruit and Vegetable \n3. Intermittent fasting" << endl;
         }
 
-    cout << "---------------------\n Pick a diet that you feel will suit you\n Diet #:";
+    cout << "---------------------\nPick a diet that you feel will suit you\nDiet #:";
     cin >> diet;
 
     if (nINPUTS[select][4] <= 18.5) {
@@ -613,63 +619,63 @@ void diet(string uINPUTS[11][1], string tINPUTS[11][5],
         }
     }
     }
-/*
+
 void exercise(string uINPUTS[11][1], string tINPUTS[11][5],
     float nINPUTS[11][4], int& memberCount, int& select) {
     int exercise;
     UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
     if (nINPUTS[select][4] <= 18.5) {
-        cout << "1. Restoring Nutrition\n2. 3000 Calories Diet\n3. Large Calorie intake" << endl;
+        cout << "1. Building Mass   \n2. Strength Training   \n3. Cardiovascular Concentrated" << endl;
     }
     else if (nINPUTS[select][4] >= 18.5 && nINPUTS[select][4] < 25) {
-        cout << "1. Low Carb, whole food\n2. Vegan \n3. Gluten-free" << endl;
+        cout << "1. Building Mass   \n2. Strength Training   \n3. Fat Burning" << endl;
     }
     else if (nINPUTS[select][4] >= 25 && nINPUTS[select][4] < 30) {
-        cout << "1. Fruit and Vegetable\n2. Low Fat Intake \n3. Lower-salt" << endl;
+        cout << "1. Fat burning     \n2. Weight Training     \n3. Cardiovascular Endurance" << endl;
     }
     else if (nINPUTS[select][4] >= 30) {
-        cout << "1. Concentrated Protein \n2. Fruit and Vegetable \n3. Intermittent fasting" << endl;
+        cout << "1. Fat burning     \n2. Weight Training     \n3. Cardiovascular Endurance" << endl;
     }
 
-    cout << "---------------------\n Pick a diet that you feel will suit you\n Diet #:";
+    cout << "---------------------\nPick a diet that you feel will suit you\nDiet #:";
     cin >> exercise;
 
     if (nINPUTS[select][4] <= 18.5) {
         switch (exercise) {
         case 1:
-            rNutrition(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            bMass(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            tCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            sTraining(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-            lCalories(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            cCardio(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
     else if (nINPUTS[select][4] >= 18.5 && nINPUTS[select][4] < 25) {
         switch (exercise) {
         case 1:
-            lCarb(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            bMass(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            Vegan(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            sTraining(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-            glutenFree(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            fBurn(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
     else if (nINPUTS[select][4] >= 25 && nINPUTS[select][4] < 30) {
         switch (exercise) {
         case 1:
-            fruitnveg(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            fBurn(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            lFat(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            wTraining(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-            lSalt(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            cEndur(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
@@ -677,18 +683,17 @@ void exercise(string uINPUTS[11][1], string tINPUTS[11][5],
     else if (nINPUTS[select][4] >= 30) {
         switch (exercise) {
         case 1:
-            cProtein(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            fBurn(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 2:
-            fruitnveg(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            wTraining(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         case 3:
-             iFasting(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+            cEndur(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
             break;
         }
     }
 }
-*/
 
 /* Diet options */
 
@@ -721,7 +726,7 @@ void iFasting(string uINPUTS[11][1], string tINPUTS[11][5],
     UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
     cout << "Here is your selected diet" << endl;
     cout << "---------------------" << endl;
-    cout << "Morning\nYou're fasting all of the morning \n---------------------\n \nLunch (12 PM)\n1. Full meal fruit enrichen\n2. Two glasses of water\nDinner (8PM)\n1. Watermelon\n2. Berries\n3. One glass of water" << endl;
+    cout << "Morning\nYou're fasting all of the morning \n---------------------\nLunch (12 PM)\n1. Full meal fruit enrichen\n2. Two glasses of water\nDinner (8PM)\n1. Watermelon\n2. Berries\n3. One glass of water" << endl;
     cout << "---------------------" << endl;
     cout << "Please press 1 to continue..." << endl;
 
@@ -934,6 +939,139 @@ void rNutrition(string uINPUTS[11][1], string tINPUTS[11][5],
     }
 }
 
+/* Exercise options */
+void bMass(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 10 ~ 15 reps of Wide pressups\n3 Sets\n60 Second Rest \n2. 10 ~ 15 reps of Spiderman Press-up\n3 Sets\n60 Second Rest\nAfternoon \n1. 10 ~ 15 reps of Incline Press-ups \n3 Sets \n60 Second Rest\n2.10 ~ 15 reps of Clap Press Up\n3 Sets \n60 Second Rest\n" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void sTraining(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 10 ~ 15 reps of Bodyweight Squat\n3 Sets\n60 Second Rest \n2. 10 ~ 15 reps of Push Up mixed with Mountain Climbers\n3 Sets\n60 Second Rest\nAfternoon \n1. 10 ~ 15 reps of Incline Press-ups \n3 Sets \n60 Second Rest\n2. 15 Minutes of Planking \n2 Sets \n60 Second Rest\n" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void fBurn(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 30 ~ 50 reps of Burpees \n2 Sets\n60 Second Rest \n2. 10 ~ 15 reps of Mountain Climbers\n3 Sets\n60 Second Rest\nAfternoon \n1. 10 ~ 15 reps of Sprawls \n3 Sets \n60 Second Rest\n2. 15 Minutes of walking" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void cCardio(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 30 ~ 50 reps of Burpees \n2 Sets\n60 Second Rest \n2. 20 ~ 30 reps of Jumping Jacks\n3 Sets\n60 Second Rest\nAfternoon \n1. 10 ~ 15 reps of High Knees \n3 Sets \n60 Second Rest\n2. 60 Minutes of walking" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void cEndur(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 1 Hour of Jogging\nAfternoon \n1. 30 Minutes of Jumping Jacks \n2 Sets \n120 Second Rest\n2. 30 Minutes of Jogging" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
+void wTraining(string uINPUTS[11][1], string tINPUTS[11][5],
+    float nINPUTS[11][4], int& memberCount, int& select) {
+    int cls = 0;
+    cleanup();
+    UIMember(uINPUTS, tINPUTS, nINPUTS, memberCount, select);
+    cout << "Here's the exercise selected" << endl;
+    cout << "---------------------" << endl;
+    cout << "Morning\n1. 20 reps of Lunges\n3 Sets\n60 Second Rest \n2. 20 Minutes of Planks\n1 Set\nAfternoon \n1. 2 Spider Man lunge\n5 Each Side\n60 Second Rest\n2. Shoulder tap\n10 Each side" << endl;
+    cout << "---------------------" << endl;
+    cout << "Please press 1 to continue..." << endl;
+
+    while (cls != 1) {
+        cin >> cls;
+        if (cls != 1) {
+            cout << "Wrong entry, please try again" << endl;
+        }
+        else {
+            cleanup();
+        }
+    }
+}
+
 /* Menus */
 
 void menu() {
@@ -965,9 +1103,3 @@ void cleanup() {
     system("CLS");
     cout << "---------------------" << endl;
 }
-
-/*
-void calorielimit(string tINPUTS[11][6], int nINPUTS[11][5], int x) {
-        //if(input[11][6] < 80)
-}
-*/
